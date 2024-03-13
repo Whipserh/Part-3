@@ -8,4 +8,10 @@ public class Merchant : Villager
     {
         base.Attack();
     }
+
+
+    public override ChestType CanOpen()
+    {
+        return ChestType.Merchant;
+    }
 }
