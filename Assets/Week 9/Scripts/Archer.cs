@@ -17,6 +17,10 @@ public class Archer : Villager
          * arrows a child (in the hierarchy) of the spawnpoint in the archer... 
          * not what we want.
         **/
+    }
 
+    public override ChestType CanOpen()
+    {
+        return ChestType.Archer;
     }
 }
