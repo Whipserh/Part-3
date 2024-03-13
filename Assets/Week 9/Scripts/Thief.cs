@@ -27,4 +27,10 @@ public class Thief : Villager
         Instantiate(knife, sp2.position, sp2.rotation);
     }
 
+
+
+    public override ChestType CanOpen()
+    {
+        return ChestType.Thief;
+    }
 }
