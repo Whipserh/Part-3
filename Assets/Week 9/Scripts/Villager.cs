@@ -15,6 +15,7 @@ public class Villager : MonoBehaviour
 
     protected Vector2 destination;
     Vector2 movement;
+    protected bool movingLeft = true;
     float speed = 3;
 
     void Start()
@@ -48,16 +49,21 @@ public class Villager : MonoBehaviour
         //flip the x direction of the game object & children to face the direction we're walking
         if(movement.x > 0)
         {
+            Debug.Log("I am moving");
             transform.localScale = new Vector3(-1, 1, 1);
+            movingLeft = false;
         }
         else if (movement.x < 0)
         {
+            Debug.Log("I am moving");
             transform.localScale = new Vector3(1, 1, 1);
+            movingLeft = true;
         }
 
         //stop moving if we're close enough to the target
         if (movement.magnitude < 0.1)
         {
+            Debug.Log("I stopped");
             movement = Vector2.zero;
         }
 
@@ -69,6 +75,7 @@ public class Villager : MonoBehaviour
         //left click: move to the click location
         if (Input.GetMouseButtonDown(0) && isSelected && !clickingOnSelf)
         {
+            
             destination = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
 
