@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor;
+
 public class CharacterControl : MonoBehaviour
 {
     public Text insert;
+    public static CharacterControl Instance; 
    void Start()
     {
+        Instance = this;
         selectedVillagerUI = insert;
     }
 
@@ -25,6 +29,7 @@ public class CharacterControl : MonoBehaviour
         SelectedVillager = villager;
         SelectedVillager.Selected(true);
         
+
         //update the UI to show what you have selected
         if (SelectedVillager.GetType() == typeof(Archer))//if they are a archer
         {
