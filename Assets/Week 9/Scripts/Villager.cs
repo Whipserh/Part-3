@@ -13,10 +13,11 @@ public class Villager : MonoBehaviour
     public GameObject highlight;
 
 
+
     protected Vector2 destination;
     Vector2 movement;
     protected bool movingLeft = true;
-    float speed = 3;
+    public float speed = 3;
 
     void Start()
     {
@@ -65,12 +66,14 @@ public class Villager : MonoBehaviour
         {
             Debug.Log("I stopped");
             movement = Vector2.zero;
+            speed = 3;
         }
 
         rb.MovePosition(rb.position + movement.normalized * speed * Time.deltaTime);
+        
     }
 
-    void Update()
+    protected void Update()
     {
         //left click: move to the click location
         if (Input.GetMouseButtonDown(0) && isSelected && !clickingOnSelf)
