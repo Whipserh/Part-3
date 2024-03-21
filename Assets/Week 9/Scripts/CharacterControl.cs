@@ -10,6 +10,7 @@ public class CharacterControl : MonoBehaviour
 {
     public Text insert;
     public static CharacterControl Instance; 
+    public List<GameObject> gameObjects = new List<GameObject>();   
    void Start()
     {
         Instance = this;
@@ -49,4 +50,13 @@ public class CharacterControl : MonoBehaviour
         }
 
     }
+
+
+    public void OnValueChanged(int index)
+    {
+        SetSelectedVillager(gameObjects[index].GetComponent<Villager>());
+    }
+
+
+
 }

@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class Archer : Villager
 {
-
+    
     public GameObject arrowPrefab;
     public Transform SpawnPoint;
 

@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using TMPro;
 public class Villager : MonoBehaviour
 {
     Rigidbody2D rb;
     Animator animator;
-
+    public TextMeshProUGUI nameTag;
     bool clickingOnSelf;
     bool isSelected;
     public GameObject highlight;
@@ -21,6 +21,7 @@ public class Villager : MonoBehaviour
 
     void Start()
     {
+        nameTag.text = gameObject.name;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         destination = transform.position;
@@ -31,12 +32,13 @@ public class Villager : MonoBehaviour
         isSelected = value;
         highlight.SetActive(isSelected);
     }
-
+    /**
     private void OnMouseDown()
     {
         CharacterControl.SetSelectedVillager(this);
         clickingOnSelf = true;
     }
+    **/
 
     private void OnMouseUp()
     {
