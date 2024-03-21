@@ -57,6 +57,9 @@ public class CharacterControl : MonoBehaviour
         SetSelectedVillager(gameObjects[index].GetComponent<Villager>());
     }
 
-
+    public void SliderValueChanged(Single value)
+    {
+        SelectedVillager.scaleVillager(value);
+    }
 
 }
