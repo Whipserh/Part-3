@@ -53,13 +53,13 @@ public class Villager : MonoBehaviour
         if(movement.x > 0)
         {
             Debug.Log("I am moving");
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-1*scaled, scaled, scaled);
             movingLeft = false;
         }
         else if (movement.x < 0)
         {
             Debug.Log("I am moving");
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(scaled, scaled, scaled);
             movingLeft = true;
         }
 
@@ -102,9 +102,10 @@ public class Villager : MonoBehaviour
     {
         return ChestType.Villager;
     }
-
+    protected float scaled;
     public void scaleVillager(float value)
     {
+        scaled = value;
         transform.localScale = new Vector3(value, value, value);
     }
 }
