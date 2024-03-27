@@ -13,22 +13,37 @@ public class Growing : MonoBehaviour
     public TextMeshProUGUI circleTMP;
     public TextMeshProUGUI crTMP;
     public int running;
-    Coroutine coroutine;
+    Coroutine coroutine, coroutine2, coroutine3;
 
     void Start()
     {
-        Square();
-        Triangle();
-        Circle();
+        StartCoroutine(growShapes());
+        
     }
 
     void Update()
     {
-        
+        crTMP.text = "Coroutines running: " + running.ToString();
     }
 
-    void Square()
+    IEnumerator growShapes()
     {
+        running++;
+        yield return StartCoroutine(Square());
+        yield return new WaitForSeconds(2);
+        coroutine = StartCoroutine(Triangle());
+        yield return new WaitForSeconds(2);
+        StartCoroutine(Circle());
+        yield return coroutine;
+
+        running--;
+
+    }
+
+
+    IEnumerator Square()
+    {
+        running++;
         float size = 0;
         while (size < 5)
         {
@@ -36,10 +51,13 @@ public class Growing : MonoBehaviour
             Vector3 scale = new Vector3(size, size, size);
             square.transform.localScale = scale;
             squareTMP.text = "Square: " + scale;
+            yield return null;
         }
+        running--;
     }
-    void Triangle()
+    IEnumerator Triangle()
     {
+        running++;
         float size = 0;
         while (size < 5)
         {
@@ -47,25 +65,33 @@ public class Growing : MonoBehaviour
             Vector3 scale = new Vector3(size, size, size);
             triangle.transform.localScale = scale;
             triangleTMP.text = "Triangle: " + scale;
+            yield return null;
         }
+        running--;
     }
-    void Circle()
+    IEnumerator Circle()
     {
-
+        running++;
         float size = 0;
-        while (size < 5)
+        while (true)
         {
-            size += Time.deltaTime;
-            Vector3 scale = new Vector3(size, size, size);
-            circle.transform.localScale = scale;
-            circleTMP.text = "Cirlce: " + scale;
+            while (size < 5)
+            {
+                size += Time.deltaTime;
+                Vector3 scale = new Vector3(size, size, size);
+                circle.transform.localScale = scale;
+                circleTMP.text = "Cirlce: " + scale;
+                yield return null;
+            }
+            while (size > 0)
+            {
+                size -= Time.deltaTime;
+                Vector3 scale = new Vector3(size, size, size);
+                circle.transform.localScale = scale;
+                circleTMP.text = "Cirlce: " + scale;
+                yield return null;
+            }
         }
-        while (size > 0)
-        {
-            size -= Time.deltaTime;
-            Vector3 scale = new Vector3(size, size, size);
-            circle.transform.localScale = scale;
-            circleTMP.text = "Cirlce: " + scale;
-        }
+        running--;
     }
 }

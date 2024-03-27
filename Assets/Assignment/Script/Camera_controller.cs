@@ -12,12 +12,17 @@ public class Camera_controller : MonoBehaviour
     }
 
     public float speed = 2;
-
+    public Transform snapBack;
     // Update is called once per frame
     void Update()
     {
 
         //move the camera using wsad
         transform.Translate(Input.GetAxis("Horizontal")*speed*Time.deltaTime, Input.GetAxis("Vertical")*speed*Time.deltaTime, 0);
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            transform.position = snapBack.position;
+        }
+        
     }
 }
