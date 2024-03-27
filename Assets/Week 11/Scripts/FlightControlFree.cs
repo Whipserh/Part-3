@@ -9,34 +9,49 @@ public class FlightControlFree : MonoBehaviour
     public float turningSpeedReduction = 0.75f;
     Coroutine coroutine;
     float interpolation = 0;
-
+    float distance = 0;
 
     private void Update()
     {
-        interpolation += Time.deltaTime;
-        if (interpolation/speed < 1)
+      
+        interpolation += 0.2f *Time.deltaTime;
+        if (interpolation < 1)
         {
+            if (turning)
+            {
+                missile.transform.rotation = Quaternion.Lerp(currentHeading, newHeading, interpolation);
+                distance = 3;
 
-            missile.transform.rotation = Quaternion.Lerp(currentHeading, newHeading, interpolation/speed);
-            missile.transform.position = Vector3.Lerp(currentPosition, newPosition , interpolation/speed);//update the position
+            }
+            missile.transform.position += missile.transform.right*distance* 0.2f * Time.deltaTime;//update the position
         }
-        
+        if (missile.transform.rotation == newHeading)
+            turning = false;
+        if(interpolation > 1)
+        {
+            distance = 0;
+        }
     }
+
+
     Quaternion newHeading;
     Quaternion currentHeading;
     Vector3 currentPosition;
     Vector3 newPosition;
+    bool turning = false;
+    
+    
     public void MakeTurn(float turn)
     {
-        
-        
+        interpolation = 0;
+        turning = true;
         currentHeading = missile.transform.rotation;
         newHeading = currentHeading * Quaternion.Euler(0, 0, turn);
 
         currentPosition = missile.transform.position;
-        newPosition = missile.transform.position + transform.right;
+        newPosition = missile.transform.position + missile.transform.right;
         
-        interpolation = 0;
+
         /**
         if (coroutine != null)
         {
@@ -49,11 +64,13 @@ public class FlightControlFree : MonoBehaviour
 
     public void MoveForwards(float length)
     {
+        distance = length;
         currentHeading = missile.transform.rotation;
         newHeading = missile.transform.rotation;
 
         currentPosition = missile.transform.position;
-        newPosition = missile.transform.position + transform.right;
+        newPosition = missile.transform.position + transform.right*length;
+        interpolation = 0;
         /**
         if (coroutine != null)
         {
