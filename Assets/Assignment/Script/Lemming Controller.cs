@@ -1,35 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LemmingController : MonoBehaviour
 {
-
+    
+    
     public static lemming SelectedLemming { get; private set; }
-
-    public static void SelectLemming(lemming selection)
+    public static void SetSelectedLemming(lemming lem)
     {
-        //deselect the last lemming 
-        if(SelectedLemming != null)
+        if (SelectedLemming != null)
         {
-            SelectedLemming.Select();
+            SelectedLemming.Selected(false);
         }
+        SelectedLemming = lem;
+        SelectedLemming.Selected(true);
 
-        //set the new lemming to be new selection
-        SelectedLemming = selection;
     }
 
-
-
-    // Start is called before the first frame update
-    void Start()
+    public static void deSelectLemming()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (SelectedLemming != null)
+        {
+            SelectedLemming.Selected(false);
+        }
     }
 }
